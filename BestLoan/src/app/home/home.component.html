@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="text-center">
+        <h1>BEST LOAN</h1>
+        <p>Los créditos que ofrecen los bancos son a pagar en 12 cuotas mensuales.</p>
+        <form [formGroup]="bankForm" (ngSubmit)="onSubmit(bankForm.value)">
+            <div class="form-group">
+                <label for="capital">
+                  Monto
+                </label>
+                <input id="capital" type="number" formControlName="capital">
+            </div>
+            <button type="button" class="btn btn-accion" (click)="display()">Piensas Pre-Cancelar?</button>
+            <div class="form-group" *ngIf="show">
+                <label for="month">
+                  Mes hasta el cual va a pre-cancelar
+                </label>
+                <input id="month" type="number" formControlName="month">
+              </div>
+            <button class="btn btn-primary"  type="submit">Comparar</button>
+          </form>
+    </div>
+    <div class="container">
+        <div class="content_card mv-30">
+            <div class="row">
+                <div class="col-3" *ngFor="let item of banks; let isFirst = first"  [class.active]="isFirst">
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.name}}</h5>
+                          <h6 class="card-subtitle text-muted" *ngIf="isFirst">Mejor Opción</h6>
+                          <p class="card-text">
+                              Capital: {{item.capital | currency}}<br>
+                              <span *ngIf="month >= 0">Mes de Pre-Cancelación: {{item.month}}</span>
+                          </p>
+                          <p class="card-text">
+                            Comisión de Apertura: {{item.commision | currency}}<br>
+                            Interes Anual: {{item.interest}}<br>
+                            Cuota Mensual: {{item.mensualFee | currency}}
+                          </p>
+                          <p class="card-text">
+                            Valor Final a Pagar: {{item.finalValueToPay | currency}}
+                          </p>
+                          <a href="#" class="card-link">Tabla de Amortización</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
